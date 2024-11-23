@@ -1,0 +1,93 @@
+/* styles.css */
+
+html, body {
+  height: 100%;
+  margin: 0; /* Remover margens */
+  padding: 0; /* Remover preenchimento */
+  background-image: url('../../img/fundo.png'); /* Substitua pelo caminho da sua imagem */
+  background-size: cover; /* Faz a imagem ocupar todo o espaço de forma proporcional */
+  background-repeat: no-repeat; /* Evita repetição da imagem */
+  background-position: center; /* Centraliza a imagem */
+}
+
+label {
+  color: white;
+}
+  
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.form-label {
+  color: #fff; /* Cor branca */
+  font-weight: bold; /* Deixa o texto mais forte, se necessário */
+}
+
+#password-login, #privateKeyInput, #passwordInput {
+  background-color: #333; /* Cor de fundo escura para o campo */
+  color: #fff; /* Cor do texto no campo */
+  border: 1px solid #ccc; /* Cor da borda (pode ser alterada para seu gosto) */
+}
+
+#password-login:focus, #privateKeyInput:focus, #passwordInput:focus {
+  border-color: #4CAF50; /* Cor da borda quando o campo está em foco */
+  outline: none; /* Remove a borda de foco padrão */
+}
+
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Remover o fundo branco da tela apenas para o #messageModal */
+#messageModal .modal-backdrop {
+  background-color: transparent !important;
+}
+
+/* Remover o fundo do modal apenas para o #messageModal */
+#messageModal .modal-content {
+  background-color: transparent !important; /* Fundo transparente */
+  border: none !important; /* Remover a borda */
+  box-shadow: none !important; /* Remover sombra */
+  color: white !important; /* Garantir que o texto seja branco */
+}
+
+/* Remover borda e outros estilos do modal apenas para o #messageModal */
+#messageModal .modal-dialog {
+  background-color: transparent !important;
+  border: none !important; /* Remover a borda do modal */
+}
+
+/* Estilo da mensagem apenas para o #messageModal */
+#messageModal .modal-body {
+  background-color: transparent !important;
+  color: white !important; /* Texto branco */
+  font-size: 18px !important; /* Ajustar o tamanho do texto */
+  padding: 0 !important; /* Remover o padding */
+  text-align: center !important; /* Centralizar o texto */
+}
+
+/* Estilo do texto conforme o tipo da mensagem */
+.text-success {
+  color: #28a745 !important; /* Verde para sucesso */
+}
+
+.text-danger {
+  color: #dc3545 !important; /* Vermelho para erro */
+}
+
+.text-warning {
+  color: #ffc107 !important; /* Amarelo para aviso */
+}
+
+.text-info {
+  color: #17a2b8 !important; /* Azul para informações gerais */
+}

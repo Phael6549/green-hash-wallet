@@ -1,0 +1,256 @@
+/* Centralizar todo o conteúdo */
+body {
+  height: 100vh;
+  background-image: url('../../img/fundoCarteira.jpg'); /* Coloque a imagem de fundo desejada */
+  background-size: cover; /* Faz a imagem cobrir toda a tela */
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white; /* Altera a cor de todo o texto para branco */
+}
+
+/* Centralizar o conteúdo dentro da main-container */
+.main-container {
+  width: 100%;
+  max-width: 800px; /* Define um limite de largura, você pode ajustar conforme necessário */
+  margin: 10%;
+  padding: 3%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro translúcido para melhor contraste */
+  border-radius: 15px; /* Bordas arredondadas */
+}
+
+/* Estilo para o título da carteira */
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Ajuste para o formulário e botões */
+.form-label, .form-control, .btn {
+  color: white; /* Altera a cor do texto dentro dos campos e botões */
+}
+
+.form-control {
+  background-color: #333; /* Cor de fundo escura para os campos de entrada */
+  border: 1px solid #ccc; /* Cor da borda dos campos */
+}
+
+.form-control:focus {
+  border-color: #4CAF50; /* Cor da borda quando o campo está em foco */
+  outline: none;
+}
+
+/* Estilo para a lista de tokens e transações */
+#token-list, #transactionsList {
+  padding-left: 20px;
+}
+
+/* Modal */
+.modal-content {
+  background-color: #222;
+  color: white;
+}
+
+.modal-content input::placeholder {
+  color: white;
+}
+
+.btn-close {
+  background-color: transparent;
+  border: none;
+  color: white;
+  opacity: 1;
+}
+
+.modal-content .btn-close:hover {
+  color: #ccc; /* Pode ser ajustado para mudar a cor ao passar o mouse */
+}
+.form-select{
+  background-color: #222;
+  color: white;
+}
+
+.close {
+  color: white;
+}
+
+/* Outras personalizações de texto */
+#zero-tokens, #error, #sucesso {
+  text-align: center;
+}
+
+.fixed-top-right {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+}
+
+.fixed-bottom-right {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 1030;
+}
+
+.fixed-top-left {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+}
+
+.token-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  background-color: #333;
+}
+
+.token-text {
+  flex: 2;
+  margin-right: 10px;
+}
+
+.token-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Torna o texto dentro do modal branco */
+#privateKeyShowModal .modal-content {
+  background-color: #212529; /* Fundo escuro para contraste */
+  color: #ffffff; /* Texto branco */
+}
+
+/* Estilo para o textarea */
+#privateKeyShowModal textarea {
+  background-color: #343a40; /* Fundo do textarea */
+  color: #ffffff; /* Texto branco no textarea */
+  border: 1px solid #495057; /* Borda do textarea */
+}
+
+/* Altera a cor do texto mutado para branco */
+#privateKeyShowModal .text-muted {
+  color: #ced4da !important;
+}
+
+/* Estilo para o botão fechar */
+#privateKeyShowModal .btn-close {
+  color: #ffffff;
+  opacity: 0.7;
+}
+
+#privateKeyShowModal .btn-close:hover {
+  color: #ffffff;
+  opacity: 1;
+}
+
+#passwordWallet, #tokenAddress, #destino, #quantidade, #contrato, #destinationAddress, #amountToSend {
+  background-color: #333; /* Cor de fundo escura para o campo */
+  color: #fff; /* Cor do texto no campo */
+  border: 1px solid #ccc; /* Cor da borda (pode ser alterada para seu gosto) */
+}
+
+#passwordWallet:focus, #tokenAddress:focus, #destino:focus, #quantidade:focus, #contrato:focus, #destinationAddress:focus, #amountToSend:focus, #networkSwitcher:focus {
+  border-color: #4CAF50;
+  outline: none;
+  border-width: 0.5px; 
+}
+
+/* Remover o fundo branco da tela apenas para o #messageModal */
+#messageModal .modal-backdrop {
+  background-color: transparent !important;
+}
+
+/* Remover o fundo do modal apenas para o #messageModal */
+#messageModal .modal-content {
+  background-color: transparent !important; /* Fundo transparente */
+  border: none !important; /* Remover a borda */
+  box-shadow: none !important; /* Remover sombra */
+  color: white !important; /* Garantir que o texto seja branco */
+}
+
+/* Remover borda e outros estilos do modal apenas para o #messageModal */
+#messageModal .modal-dialog {
+  background-color: transparent !important;
+  border: none !important; /* Remover a borda do modal */
+}
+
+/* Estilo da mensagem apenas para o #messageModal */
+#messageModal .modal-body {
+  background-color: transparent !important;
+  color: white !important; /* Texto branco */
+  font-size: 18px !important; /* Ajustar o tamanho do texto */
+  padding: 0 !important; /* Remover o padding */
+  text-align: center !important; /* Centralizar o texto */
+}
+
+/* Estilo do texto conforme o tipo da mensagem */
+.text-success {
+  color: #28a745 !important; /* Verde para sucesso */
+}
+
+.text-danger {
+  color: #dc3545 !important; /* Vermelho para erro */
+}
+
+.text-warning {
+  color: #ffc107 !important; /* Amarelo para aviso */
+}
+
+.text-info {
+  color: #17a2b8 !important; /* Azul para informações gerais */
+}
+
+/* Estilo geral para o contêiner de informações */
+.wallet-info {
+  margin: 20px 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fonte mais moderna */
+}
+
+/* Estilo para cada item de carteira */
+.wallet-item {
+  background-color: #333; /* Fundo escuro */
+  border-radius: 10px; /* Bordas arredondadas */
+  padding: 15px;
+  margin-bottom: 10px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+}
+
+/* Estilo do texto "Endereço da Carteira" e "Saldo" */
+.wallet-item strong {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* Estilo da parte que mostra os valores */
+.wallet-item .value {
+  font-weight: 700;
+  font-size: 16px;
+  color: #4CAF50; /* Verde para destacar valores */
+  text-transform: uppercase; /* Deixa o valor mais destacado */
+}
+
+/* Efeito de hover para dar interatividade */
+.wallet-item:hover {
+  background-color: #444;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Mais destaque na borda */
+  transform: translateY(-5px); /* Levanta o item */
+}

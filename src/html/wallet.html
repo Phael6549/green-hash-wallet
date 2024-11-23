@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Green Hash Wallet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Segurança -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains">
+  
+  <!-- Proteção contra XSS (Cross Site Scripting) -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-random123'; object-src 'none'; style-src 'self' 'unsafe-inline'; base-uri 'self';">
+  
+  <!-- Evitar o uso de certas vulnerabilidades -->
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Links para CSS -->
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+  <script src="../js/csp-secure.js"></script>
+
+</head>
+<body class="bg-light">
+  <div class="main-container">
+
+    <!-- Botão para mostrar a chave privada -->
+    <button id="show-private-key" class="btn btn-secondary mb-4 fixed-top-left">Mostrar Chave Privada</button>
+
+    <!-- Modal de solicitar a chave privada -->
+    <div class="modal fade" id="PrivateKeyModal" tabindex="-1" aria-labelledby="PrivateKeyModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="PrivateKeyModalLabel">Chave privada da Carteira</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+          </div>
+          <div class="modal-body">
+            <form id="PrivateKeyForm">
+              <div class="mb-3">
+                <label for="passwordWallet" class="form-label">Senha da carteira:</label>
+                <input type="password" id="passwordWallet" class="form-control" required>
+              </div>
+              <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-secondary">Visualizar</button>
+              </div>              
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para exibir a chave privada -->
+    <div class="modal fade" id="privateKeyShowModal" tabindex="-1" aria-labelledby="privateKeyShowModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="privateKeyShowModalLabel">Sua Chave Privada</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+          </div>
+          <div class="modal-body">
+            <textarea id="privateKeyText" class="form-control text-monospace" rows="5" readonly></textarea>
+            <p class="mt-3 text-muted text-center">Mantenha esta chave em segurança e não compartilhe com ninguém.</p>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            <button type="button" class="btn btn-primary" id="copyPrivateKey">Copiar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botão para deletar a carteira -->
+    <button id="delete-wallet" class="btn btn-danger mb-4 fixed-top-right">Deletar Carteira</button>
+
+    <!-- Modal de Mensagem -->
+    <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 300px;">
+        <div class="modal-content text-center">
+          <div class="modal-body d-flex align-items-center justify-content-center" style="height: 100px;">
+            <p id="messageContent" class="mb-0" style="text-align: center; margin: 0;"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Confirmação de Exclusão -->
+    <div class="modal fade" id="deleteWalletModal" tabindex="-1" aria-labelledby="deleteWalletModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteWalletModalLabel">Confirmar Exclusão</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Tem certeza de que deseja excluir a carteira? Esta ação não pode ser desfeita.
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-danger" id="confirmDelete">Excluir</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h1 class="mb-4">Carteira <span id="moeda">Ethereum</span></h1>
+
+    <div id="tokens" style="display: none;">
+      <!-- Seção para mostrar saldos de tokens -->
+      <h2 class="mb-3">Tokens</h2>
+
+      <div class="d-flex justify-content-center gap-3">
+        <button id="import-token" class="btn btn-primary mb-4">Importar Token</button>
+        <button id="muda-carteira" class="btn btn-secondary mb-4">Voltar</button>
+      </div>
+
+      <p id="zero-tokens">Nenhum token importado ainda.</p>
+
+      <ul id="token-list" class="mb-4">
+        <!-- Esta seção será preenchida dinamicamente com os saldos de tokens -->
+      </ul>
+
+      <!-- Modal de Importação de Token -->
+      <div class="modal fade" id="importTokenModal" tabindex="-1" aria-labelledby="importTokenModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="importTokenModalLabel">Importar Token</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+            </div>
+            <div class="modal-body">
+              <form id="importTokenForm">
+                <div class="mb-3">
+                  <label for="tokenAddress" class="form-label">Endereço do Token:</label>
+                  <input type="text" id="tokenAddress" class="form-control" placeholder="0x..." required>
+                </div>
+                <button type="submit" class="btn btn-secondary">Importar Token</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal de Envio de Tokens -->
+      <div class="modal fade" id="sendModal" tabindex="-1" aria-labelledby="sendModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <!-- Cabeçalho -->
+            <div class="modal-header">
+              <h5 class="modal-title" id="sendModalLabel">Enviar Tokens</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar">X</button>
+            </div>
+
+            <!-- Corpo -->
+            <div class="modal-body">
+              <form id="sendForm">
+                <!-- Campo: Endereço de Destino -->
+                <div class="mb-3">
+                  <label for="destino" class="form-label">Endereço de Destino:</label>
+                  <input 
+                    type="text" 
+                    id="destino" 
+                    name="destino" 
+                    class="form-control" 
+                    placeholder="0x..." 
+                    required>
+                </div>
+
+                <!-- Campo: Quantidade de Tokens -->
+                <div class="mb-3">
+                  <label for="quantidade" class="form-label">Quantidade de Tokens:</label>
+                  <input 
+                    type="number" 
+                    id="quantidade" 
+                    name="quantidade" 
+                    class="form-control" 
+                    placeholder="1000" 
+                    min="0" 
+                    step="0.01" 
+                    required>
+                </div>
+
+                <!-- Campo oculto -->
+                <input type="hidden" id="contrato" name="contrato">
+
+                <!-- Botão de Envio -->
+                <div class="d-grid">
+                  <button type="submit" class="btn btn-primary">Enviar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+    <div id="wallet-principal">
+      <!-- Selecionador de redes -->
+      <div class="mb-3">
+        <label for="networkSwitcher" class="form-label">Escolha uma rede:</label>
+        <select id="networkSwitcher" class="form-select">
+          <option value="mainnet" simbolo="ETH">Ethereum</option>
+          <option value="sepolia" simbolo="ETH">Ethereum Sepolia</option>
+          <option value="bsc-mainnet" simbolo="BNB">BSC (Binance Smart Chain)</option>
+          <option value="base-mainnet" simbolo="ETH">Base</option>
+          <option value="polygon-amoy" simbolo="MATIC">Polygon</option>
+          <option value="optimism-mainnet" simbolo="ETH">Optimism</option>
+          <option value="arbitrum-mainnet" simbolo="ETH">Arbitrum</option>
+        </select>  
+      </div>
+    
+      <!-- Elementos para exibir os dados da carteira -->
+      <div class="mb-3">
+        <div class="wallet-info">
+          <div class="wallet-item" id="walletAddress">
+            <strong>Endereço da Carteira: </strong>
+            <span class="value"></span>
+          </div>
+          <div class="wallet-item" id="walletBalance">
+            <strong>Saldo da Carteira: </strong>
+            <span class="value"></span>
+          </div>
+        </div>        
+      </div>
+  
+      <div class="d-flex justify-content-center gap-3">
+        <button id="enviar-eth" class="btn btn-success mb-4">Enviar ETH</button>
+        <button id="muda-tokens" class="btn btn-secondary mb-4">Visualizar Tokens</button>
+      </div>      
+  
+      <!-- Modal de Envio de ETH -->
+      <div class="modal fade" id="sendETHModal" tabindex="-1" aria-labelledby="sendETHModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="sendETHModalLabel">Enviar ETH</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+            </div>
+            <div class="modal-body">
+              <form id="sendCoinForm" class="mb-4">
+                <div class="mb-3">
+                  <label for="destinationAddress" class="form-label">Endereço de Destino:</label>
+                  <input type="text" id="destinationAddress" class="form-control" placeholder="0x..." required>
+                </div>
+                <div class="mb-3">
+                  <label for="amountToSend" class="form-label">Quantidade <span class="simbolo">ETH</span>:</label>
+                  <input type="number" id="amountToSend" class="form-control" step="any" placeholder="0.1" required>
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-success">Enviar <span class="simbolo">ETH</span></button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Animação de Envio -->
+    <div class="modal fade" id="sendingModal" tabindex="-1" aria-labelledby="sendingModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center">
+          <div class="modal-header">
+            <h5 class="modal-title" id="sendingModalLabel">Processando</h5>
+          </div>
+          <div class="modal-body">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Enviando...</span>
+            </div>
+            <p id="sendingMessage" class="mt-3">Enviando <span class="moeda-simbolo">ETH</span>... Aguarde confirmação!</p>
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeButtonSendingModal">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Incluir o script JavaScript -->
+    <script src="../js/wallet.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+  </div>
+
+  <link rel="stylesheet" href="../css/walletStyles.css">
+
+</body>
+</html>

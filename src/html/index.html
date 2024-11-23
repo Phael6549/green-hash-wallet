@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Green Hash Wallet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Segurança -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains">
+  
+  <!-- Proteção contra XSS (Cross Site Scripting) -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-random123'; object-src 'none'; style-src 'self' 'unsafe-inline'; base-uri 'self';">
+  
+  <!-- Evitar o uso de certas vulnerabilidades -->
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Links para CSS -->
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+  <script src="../js/csp-secure.js"></script>
+</head>
+
+<body class="bg-light">
+  <div class="main-container">
+    <div class="text-center mb-4">
+      <img src="../../img/icon.png" alt="Green Hash Wallet Logo" class="img-fluid" style="max-width: 200px;">
+    </div>
+    
+    <!-- Botões -->
+    <div class="d-flex justify-content-center mb-4">
+      <button id="create-wallet" class="btn btn-success me-2">Criar Nova Carteira</button>
+      <button id="import-wallet" class="btn btn-secondary">Importar Carteira</button>
+    </div>
+
+    <!-- Campo de entrada para a chave privada -->
+    <div id="import-section" class="mb-4 text-center" style="display: none;">
+      <div class="mb-3">
+        <label for="privateKeyInput" class="form-label">Insira a chave privada:</label>
+        <input type="text" id="privateKeyInput" class="form-control">
+      </div>
+      <button id="confirm-import" class="btn btn-success">Confirmar Importação</button>
+    </div>
+
+    <!-- Campo de entrada para a senha (Criptografar) -->
+    <div id="password-encrypt" class="mb-4 text-center" style="display: none;">
+      <div class="mb-3">
+        <label for="passwordInput" class="form-label">Digite uma senha para criptografar sua carteira:</label>
+        <input type="password" id="passwordInput" class="form-control">
+      </div>
+      <button id="confirm-password" class="btn btn-success">Confirmar Senha</button>
+    </div>
+
+    <p id="error" class="text-danger text-center"></p>
+  </div>
+
+  <!-- Modal de Mensagem -->
+  <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 300px;">
+      <div class="modal-content text-center">
+        <div class="modal-body d-flex align-items-center justify-content-center" style="height: 100px;">
+          <p id="messageContent" class="mb-0" style="text-align: center; margin: 0;"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Incluir o script JavaScript -->
+  <script src="../js/index.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+{
+  "name": "green-hash-wallet",
+  "version": "1.0.0",
+  "description": "Carteira de criptomoedas",
+  "main": "main/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "author": "Raphael Dutra Cunha",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^33.1.0",
+    "electron-builder": "^24.13.3"
+  },
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.5",
+    "ethers": "^6.13.4",
+    "web3": "^4.15.0"
+  },
+  "build": {
+    "appId": "com.greenhashwallet",
+    "productName": "Green Hash Wallet",
+    "files": [
+      "**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "mac": {
+      "category": "public.app-category.finance"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "icon": "img/icon.png"
+  }
+}
