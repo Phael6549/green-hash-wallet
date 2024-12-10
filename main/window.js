@@ -1,8 +1,10 @@
 const { BrowserWindow, shell } = require('electron');
 const path = require('path');
 
+// Variável que representa a janela do aplicativo
 var win;
 
+// Função para criar a janela do aplicativo
 function createWindow(initialPage) {
 
   win = new BrowserWindow({
@@ -17,13 +19,10 @@ function createWindow(initialPage) {
     },
   });
 
-  // Ocultar a barra de menu
   win.setMenuBarVisibility(false);
 
-  // Carrega a página inicial com base na verificação da carteira
   win.loadFile(path.join(__dirname, '..', 'src', 'html', initialPage));
 
-  // Impede navegação fora da janela
   win.webContents.on('will-navigate', (event, url) => {
     if (url !== win.webContents.getURL()) {
       if (url.startsWith('https://') || url.startsWith('http://')) {
@@ -39,12 +38,14 @@ function createWindow(initialPage) {
   });
 }
 
+// Função para redirecionar para outra página
 function redirectToPage(page) {
   if (win) {
     win.loadFile(path.join(__dirname, '..', 'src', 'html', page));
   }
 }
 
+// Exportando funções createWindow e redirectToPage
 module.exports = {
   createWindow,
   redirectToPage,

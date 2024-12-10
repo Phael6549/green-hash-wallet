@@ -4,9 +4,7 @@ var method = "create";
 document.getElementById("create-wallet").addEventListener("click", () => {
   method = "create";
   document.getElementById("passwordInput").value = "";
-  // Ocultar a seção de importação, se visível
   document.getElementById("import-section").style.display = "none";
-  // Exibe o campo de senha para o usuário
   document.getElementById("password-encrypt").style.display = "block";
 });
 
@@ -14,7 +12,6 @@ document.getElementById("create-wallet").addEventListener("click", () => {
 document.getElementById("import-wallet").addEventListener("click", () => {
   document.getElementById("privateKeyInput").value = "";
   document.getElementById("passwordInput").value = "";
-  // Ocultar a seção de criação de carteira, se visível
   document.getElementById("password-encrypt").style.display = "none";
   document.getElementById("import-section").style.display = "block";
 });
@@ -28,9 +25,7 @@ document.getElementById("confirm-import").addEventListener("click", () => {
     return;
   }
 
-  // Oculta o campo de chave privada
   document.getElementById("import-section").style.display = "none";
-  // Exibe o campo de senha para criptografia
   document.getElementById("password-encrypt").style.display = "block";
 
   method = "import";
@@ -79,18 +74,17 @@ document.getElementById("confirm-password").addEventListener("click", () => {
   }
 });
 
+// Função para mostrar uma mensagem no modal
 function showMessageModal(message, type) {
   const modalMessage = new bootstrap.Modal(document.getElementById('messageModal'), {
-    backdrop: 'static',  // Não permite fechar clicando fora do modal
-    keyboard: false      // Não fecha com a tecla ESC
+    backdrop: 'static',
+    keyboard: false
   });
 
   const messageContent = document.getElementById("messageContent");
 
-  // Limpa qualquer classe anterior de mensagem
   messageContent.classList.remove('alert', 'alert-success', 'alert-danger', 'alert-warning');
 
-  // Define a classe do tipo de mensagem
   if (type === 'success') {
     messageContent.classList.add('alert', 'alert-success');
   } else if (type === 'danger') {
@@ -99,12 +93,9 @@ function showMessageModal(message, type) {
     messageContent.classList.add('alert', 'alert-warning');
   }
 
-  // Insere a mensagem no modal
   messageContent.innerHTML = message;
 
-  // Exibe o modal
   modalMessage.show();
 
-  // Fecha automaticamente após 2 segundos
   setTimeout(() => modalMessage.hide(), 2000);
 }

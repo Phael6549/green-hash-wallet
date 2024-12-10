@@ -1,12 +1,14 @@
-var redeAPI = 'mainnet'; // Valor padrão da variável
-var moeda = 'Ethereum'; // Valor padrão da variável
-var moedaSimbolo = 'ETH'; // Valor padrão da variável
+// Variáveis da rede atual
+var redeAPI = 'mainnet';
+var moeda = 'Ethereum';
+var moedaSimbolo = 'ETH';
 
-
+// Variável que representa o switcher de troca de rede
 const networkSwitcher = document.getElementById('networkSwitcher');
 
+// Chama a função para ler os dados da carteira inicialmente e depois a cada 10 segundos
 loadWallet();
-setInterval(loadWallet, 10000); // Executa a função a cada 10000 ms (10 segundos)
+setInterval(loadWallet, 10000);
 
 // Função para ler os dados da carteira
 async function loadWallet() {
@@ -33,6 +35,7 @@ async function loadWallet() {
   }
 }
 
+// Listener para troca de rede
 if (networkSwitcher) {
   networkSwitcher.addEventListener('change', function() {
 
@@ -43,7 +46,6 @@ if (networkSwitcher) {
         moeda = this.options[this.selectedIndex].text;
         moedaSimbolo = this.options[this.selectedIndex].getAttribute('simbolo');
   
-        // Alterar todos os elementos com a classe 'simbolo'
         document.querySelectorAll('.simbolo').forEach(element => {
           element.innerText = moedaSimbolo; 
         });
@@ -62,13 +64,13 @@ if (networkSwitcher) {
   });
 }
 
-// Listener para o botão de abrir o modal
+// Listener para o o modal de enviar moeda
 document.getElementById('enviar-eth').addEventListener('click', () => {
   const sendETHModal = new bootstrap.Modal(document.getElementById('sendETHModal'),);
   sendETHModal.show();
 });
 
-// Evento de submit para enviar ETH
+// Evento de submit para enviar moeda
 document.getElementById('sendCoinForm').addEventListener('submit', async function(event) {
   event.preventDefault();
 
@@ -84,17 +86,13 @@ document.getElementById('sendCoinForm').addEventListener('submit', async functio
       const sendETHModal = bootstrap.Modal.getInstance(document.getElementById('sendETHModal'));
       sendETHModal.hide();
       
-      // Verifica se o spinner já existe
       if (!document.querySelector(".spinner-border")) {
-        // Seleciona o corpo do modal onde o spinner será adicionado
         const container = document.querySelector("#sendingModal .modal-body");
 
-        // Cria o spinner
         const spinner = document.createElement('div');
         spinner.classList.add('spinner-border', 'text-primary');
-        spinner.setAttribute('role', 'status');  // Atributo de acessibilidade
+        spinner.setAttribute('role', 'status');
 
-        // Adiciona o spinner ao corpo do modal
         container.appendChild(spinner);
       }
 
@@ -175,6 +173,7 @@ document.getElementById('sendCoinForm').addEventListener('submit', async functio
   }
 });
 
+// Função para adicionar token na carteira na rede atual
 async function addTokenToWallet(tokenAddress) {
   try {
     window.cryptoAPI.addTokenToWallet(tokenAddress)
@@ -194,15 +193,15 @@ async function addTokenToWallet(tokenAddress) {
   }
 }
 
-// Listener para o botão de abrir o modal
+// Listener para o modal de importar token
 document.getElementById('import-token').addEventListener('click', () => {
   const importTokenModal = new bootstrap.Modal(document.getElementById('importTokenModal'),);
   importTokenModal.show();
 });
 
-// Adiciona o listener de submissão apenas uma vez
+// Listener para o envio de token
 document.getElementById("importTokenForm").addEventListener("submit", async function(event) {
-  event.preventDefault(); // Evita o envio padrão do formulário
+  event.preventDefault();
 
   const importTokenModal = bootstrap.Modal.getInstance(document.getElementById('importTokenModal'));
   importTokenModal.hide();
@@ -217,6 +216,7 @@ document.getElementById("importTokenForm").addEventListener("submit", async func
   }
 });
 
+// Função para listar tokens já importados da rede atual
 async function listaTokens() {
   try {
     window.cryptoAPI.retornarTokens(this.value)
@@ -228,25 +228,20 @@ async function listaTokens() {
         document.getElementById('zero-tokens').style.display = 'none';
         
         tokens.forEach(async (token, index) => {
-          // Criar o container do item
           const listItem = document.createElement('div');
           listItem.className = "token-item";
         
-          // Criar o texto do token
           const tokenText = document.createElement('div');
           tokenText.className = "token-text";
           tokenText.textContent = `Token: ${token.name}, Símbolo: ${token.symbol}, Quantidade: ${token.amount}`;
         
-          // Criar container para os botões
           const buttonContainer = document.createElement('div');
           buttonContainer.className = "token-buttons";
         
-          // Criar botão de exclusão
           const deleteButton = document.createElement('button');
           deleteButton.className = "btn btn-danger";
           deleteButton.textContent = 'Excluir';
           deleteButton.onclick = async () => {
-            // Excluir o token da lista
             window.cryptoAPI.excluirToken(index)
               .then((response) => {
                 if (response && response !== false) {
@@ -261,24 +256,19 @@ async function listaTokens() {
             listaTokens();
           };
         
-          // Criar botão de envio
           const sendButton = document.createElement('button');
           sendButton.className = "btn btn-success";
           sendButton.textContent = 'Enviar Tokens';
           sendButton.onclick = function () {
-            // Exibir o modal de envio
             openSendModal(token.contract);
           };
         
-          // Adicionar botões ao container de botões
           buttonContainer.appendChild(deleteButton);
           buttonContainer.appendChild(sendButton);
         
-          // Adicionar texto e botões ao item da lista
           listItem.appendChild(tokenText);
           listItem.appendChild(buttonContainer);
         
-          // Adicionar o item ao elemento da lista
           tokenListElement.appendChild(listItem);
         });        
       }
@@ -300,7 +290,6 @@ document.getElementById('delete-wallet').addEventListener('click', () => {
   const modalDelete = new bootstrap.Modal(document.getElementById('deleteWalletModal'),);
   modalDelete.show();
   document.getElementById("confirmDelete").addEventListener("click", function() {
-    // Chama a função do backend via API ou comunicação IPC (no caso de Electron, por exemplo)
     window.cryptoAPI.deleteWallet()
       .then(() => {
         modalDelete.hide();
@@ -314,33 +303,32 @@ document.getElementById('delete-wallet').addEventListener('click', () => {
   });
 });
 
-// Evento para deletar a carteira
+// Evento para mostrar tokens
 document.getElementById('muda-tokens').addEventListener('click', () => {
   document.getElementById('tokens').style.display = "block";
   document.getElementById('wallet-principal').style.display = "none";
 });
 
-// Evento para deletar a carteira
+// Evento para mostrar moeda principal da carteira
 document.getElementById('muda-carteira').addEventListener('click', () => {
   document.getElementById('tokens').style.display = "none";
   document.getElementById('wallet-principal').style.display = "block";
 });
 
-// Função para exibir o modal
+// Função para exibir o modal de enviar tokens
 function openSendModal(contract) {
-  // Inicializar e abrir o modal
   const sendModal = new bootstrap.Modal(document.getElementById('sendModal'));
   sendModal.show();
   document.getElementById('contrato').value = contract;
 }
 
-// Função para fechar o modal
+// Função para fechar o modal de enviar tokens
 function closeSendModal() {
   const sendModal = bootstrap.Modal.getInstance(document.getElementById('sendModal'));
   sendModal.hide();
 }
 
-// Evento de envio do formulário
+// Evento para envio de tokens
 document.getElementById('sendForm').onsubmit = async function (event) {
   event.preventDefault();
 
@@ -350,18 +338,14 @@ document.getElementById('sendForm').onsubmit = async function (event) {
 
   if (contrato && destino && quantidade) {
     try {
-      // Verifica se o spinner já existe
       if (!document.querySelector(".spinner-border")) {
 
-        // Seleciona o corpo do modal onde o spinner será adicionado
         const container = document.querySelector("#sendingModal .modal-body");
 
-        // Cria o spinner
         const spinner = document.createElement('div');
         spinner.classList.add('spinner-border', 'text-primary');
-        spinner.setAttribute('role', 'status');  // Atributo de acessibilidade
+        spinner.setAttribute('role', 'status');
 
-        // Adiciona o spinner ao corpo do modal
         container.appendChild(spinner);
       }
 
@@ -416,7 +400,7 @@ document.getElementById('sendForm').onsubmit = async function (event) {
       });
 
       listaTokens();
-      closeSendModal();  // Fechar o modal após o envio
+      closeSendModal();
     } catch (error) {
 
       document.getElementById("sendingMessage").innerHTML = `
@@ -440,12 +424,13 @@ document.getElementById('sendForm').onsubmit = async function (event) {
 
 };
 
+// Evento para mostrar modal da chave privada
 document.getElementById("show-private-key").addEventListener("click", function () {
   modalInstance = new bootstrap.Modal(document.getElementById("PrivateKeyModal"));
   modalInstance.show();
 });
 
-// Função para visualizar chave privada
+// Função para solicitar chave privada
 document.getElementById("PrivateKeyForm").addEventListener("submit", async function(event) {
   event.preventDefault();
   const passwordWallet = document.getElementById("passwordWallet").value.trim();
@@ -476,17 +461,15 @@ document.getElementById("PrivateKeyForm").addEventListener("submit", async funct
   }
 });
 
+// Função para mostrar a chave privada
 function showPrivateKeyModal(privateKey) {
   const privateKeyShowModal = new bootstrap.Modal(document.getElementById('privateKeyShowModal'));
   
-  // Inserir a chave privada no textarea
   const privateKeyText = document.getElementById('privateKeyText');
   privateKeyText.value = privateKey;
 
-  // Mostrar o modal
   privateKeyShowModal.show();
 
-  // Configurar botão de copiar
   document.getElementById('copyPrivateKey').addEventListener('click', () => {
     navigator.clipboard.writeText(privateKey).then(() => {
       const modalBody = document.querySelector('#privateKeyShowModal .modal-body');
@@ -512,18 +495,17 @@ function showPrivateKeyModal(privateKey) {
   });
 }
 
+// Função para mostrar modal de mensagem
 function showMessageModal(message, type) {
   const modalMessage = new bootstrap.Modal(document.getElementById('messageModal'), {
-    backdrop: 'static',  // Não permite fechar clicando fora do modal
-    keyboard: false      // Não fecha com a tecla ESC
+    backdrop: 'static',
+    keyboard: false
   });
 
   const messageContent = document.getElementById("messageContent");
 
-  // Limpa qualquer classe anterior de mensagem
   messageContent.classList.remove('alert', 'alert-success', 'alert-danger', 'alert-warning');
 
-  // Define a classe do tipo de mensagem
   if (type === 'success') {
     messageContent.classList.add('alert', 'alert-success');
   } else if (type === 'danger') {
@@ -532,12 +514,9 @@ function showMessageModal(message, type) {
     messageContent.classList.add('alert', 'alert-warning');
   }
 
-  // Insere a mensagem no modal
   messageContent.innerHTML = message;
 
-  // Exibe o modal
   modalMessage.show();
 
-  // Fecha automaticamente após 2 segundos
   setTimeout(() => modalMessage.hide(), 2000);
 }

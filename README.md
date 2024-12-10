@@ -1,6 +1,6 @@
 # 🌱 Green Hash Wallet
 
-**Green Hash Wallet** é uma carteira quente ERC-20 multifuncional, projetada para atender às necessidades dos usuários de criptomoedas que desejam enviar e gerenciar ativos de forma rápida e segura. Com suporte a várias redes, a Green Hash Wallet permite transações com **ETH** e outras moedas, além de possibilitar a importação e envio de tokens personalizados.
+**Green Hash Wallet** é uma carteira quente ERC-20 multifuncional, projetada para atender às necessidades dos usuários de criptomoedas que desejam enviar e gerenciar ativos de forma rápida e segura. Com suporte a várias redes, a Green Hash Wallet permite transações com **ETH** e **BNB**, além de possibilitar a importação e envio de tokens personalizados.
 
 ---
 
@@ -10,7 +10,6 @@
   - **Ethereum Mainnet (ETH)**
   - **Binance Smart Chain (BSC)**
   - **Base (BSC)**
-  - **Polygon (MATIC)**
   - **Optimism (ETH)**
   - **Arbitrum (ETH)**
 

@@ -1,21 +1,28 @@
-MIT License
+LICENÇA DE USO PARA SOFTWARE
+Green Hash Wallet
 
-Copyright (c) 2024 [Seu Nome]
+Copyright (c) 2024 Raphael Dutra Cunha
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+1. DEFINIÇÕES
+1.1. Para fins desta licença, "Software" refere-se ao programa de computador denominado Green Hash Wallet, incluindo seu código-fonte, código executável, documentação associada e quaisquer arquivos incluídos no pacote.
+1.2. "Licenciante" refere-se ao autor e titular dos direitos sobre o Software, Raphael Dutra Cunha.
+1.3. "Usuário" refere-se à pessoa ou entidade que faz uso do Software conforme os termos desta licença.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+2. CONCESSÃO DE LICENÇA
+2.1. O Licenciante concede ao Usuário uma licença limitada, não exclusiva e intransferível para utilizar o Software para fins pessoais ou comerciais, sujeito às restrições estabelecidas nesta licença.
+2.2. Esta licença não transfere a propriedade do Software ao Usuário, permanecendo todos os direitos reservados ao Licenciante.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+3. RESTRIÇÕES DE USO
+3.1. O Usuário não poderá, sob nenhuma circunstância:
+a) Copiar, distribuir ou sublicenciar o Software, exceto conforme expressamente permitido nesta licença;
+b) Modificar, adaptar, traduzir ou criar obras derivadas do Software sem autorização prévia por escrito do Licenciante;
+c) Utilizar o Software para fins ilegais ou em violação a leis aplicáveis.
+
+4. LIMITAÇÃO DE GARANTIA
+4.1. O Software é fornecido "NO ESTADO EM QUE SE ENCONTRA", sem garantia de qualquer natureza, expressa ou implícita, incluindo, mas não se limitando às garantias de comercialização, adequação a um propósito específico ou não violação.
+4.2. O Licenciante não será responsável por quaisquer danos diretos, indiretos, incidentais, especiais ou consequentes decorrentes do uso ou incapacidade de usar o Software.
+
+5. PRAZO E RESCISÃO
+5.1. Esta licença entra em vigor na data em que o Usuário adquirir ou utilizar o Software.
+5.2. O Licenciante poderá rescindir esta licença imediatamente caso o Usuário viole qualquer termo aqui estabelecido.
+5.3. Em caso de rescisão, o Usuário deverá cessar imediatamente o uso do Software e excluir todas as cópias em sua posse.

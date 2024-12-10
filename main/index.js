@@ -5,14 +5,17 @@ const path = require('path');
 const crypto = require('crypto');
 const { redirectToPage } = require('./window');
 
+// Variáveis de criptografia
 const ENCRYPTION_ALGORITHM = 'aes-256-cbc';
 const KEY_LENGTH = 32;
 const IV_LENGTH = 16;
 
+// Função para gerar chave para criptografia de dados
 function generateKeyFromPassword(password, salt) {
   return crypto.scryptSync(password, salt, KEY_LENGTH);
 }
 
+// Função para criptografar dados
 function encryptData(data, password) {
   const salt = crypto.randomBytes(16);
   const key = generateKeyFromPassword(password, salt);
@@ -25,6 +28,7 @@ function encryptData(data, password) {
   return `${salt.toString('hex')}:${iv.toString('hex')}:${encryptedData}`;
 }
 
+// Função para checar se a carteira EVM existe e está salva corretamente
 function checkWallet() {
   const walletPath = path.join(__dirname, 'wallet.json');
 
@@ -32,17 +36,16 @@ function checkWallet() {
     try {
       const walletData = JSON.parse(fs.readFileSync(walletPath, 'utf-8'));
 
-      // Verifica se o arquivo contém o formato esperado
       if (walletData.address && walletData.privateKey) {
-        return true; // Retorna verdadeiro se o arquivo contém os dados esperados
+        return true;
       } else {
-        return false; // Retorna falso se faltar algum campo
+        return false;
       }
     } catch (error) {
-      return false; // Retorna falso em caso de erro ao ler o arquivo
+      return false;
     }
   } else {
-    return false; // Retorna falso se o arquivo não existir
+    return false;
   }
 }
 
@@ -52,7 +55,6 @@ function createAndSaveWallet(password) {
     const wallet = ethers.Wallet.createRandom();
     const walletPath = path.join(__dirname, 'wallet.json');
 
-    // Criptografar a chave privada
     const encryptedPrivateKey = encryptData(wallet.privateKey, password);
     const encryptedAddress = encryptData(wallet.address, password);
 
@@ -61,11 +63,10 @@ function createAndSaveWallet(password) {
       privateKey: encryptedPrivateKey
     };
 
-    // Salvar o arquivo wallet.json
     fs.writeFileSync(walletPath, JSON.stringify(encryptedWalletData));
 
     setTimeout(() => {
-      redirectToPage('unlock.html'); // Redireciona para outra página
+      redirectToPage('unlock.html');
     }, 2000);
 
     return { success: true};
@@ -75,13 +76,12 @@ function createAndSaveWallet(password) {
   }
 }
 
-// Função para importar a carteira EVM e criptografar a chave privada
+// Função para importar uma carteira EVM, criptografar e salvar no arquivo
 function importAndSaveWallet(privateKey, password) {
   try {
     const wallet = new ethers.Wallet(privateKey);
     const walletPath = path.join(__dirname, 'wallet.json');
 
-    // Criptografar a chave privada
     const encryptedPrivateKey = encryptData(wallet.privateKey, password);
     const encryptedAddress = encryptData(wallet.address, password);
 
@@ -90,11 +90,10 @@ function importAndSaveWallet(privateKey, password) {
       privateKey: encryptedPrivateKey
     };
 
-    // Salvar o arquivo wallet.json
     fs.writeFileSync(walletPath, JSON.stringify(encryptedWalletData));
 
     setTimeout(() => {
-      redirectToPage('unlock.html'); // Redireciona para outra página
+      redirectToPage('unlock.html');
     }, 2000);
 
     return { success: true};
@@ -114,4 +113,5 @@ ipcMain.handle('createWallet', (event, password) => {
   return createAndSaveWallet(password);
 });
 
+// Exportando função checkWallet
 module.exports = { checkWallet };

@@ -8,7 +8,6 @@ document.getElementById('delete-wallet').addEventListener('click', () => {
   const modalDelete = new bootstrap.Modal(document.getElementById('deleteWalletModal'),);
   modalDelete.show();
   document.getElementById("confirmDelete").addEventListener("click", function() {
-    // Chama a função do backend via API ou comunicação IPC (no caso de Electron, por exemplo)
     window.cryptoAPI.deleteWallet()
       .then(() => {
         modalDelete.hide();
@@ -31,7 +30,6 @@ document.getElementById("login").addEventListener("click", () => {
     return;
   }
 
-  // Envia a senha para o back-end para autenticação via API
   window.cryptoAPI.authenticateWallet(password)
   .then((result) => {
     if (result && 'success' in result && result.success) {
@@ -45,18 +43,17 @@ document.getElementById("login").addEventListener("click", () => {
   });
 });
 
+// Função para mostrar uma mensagem no modal
 function showMessageModal(message, type) {
   const modalMessage = new bootstrap.Modal(document.getElementById('messageModal'), {
-    backdrop: 'static',  // Não permite fechar clicando fora do modal
-    keyboard: false      // Não fecha com a tecla ESC
+    backdrop: 'static',
+    keyboard: false
   });
 
   const messageContent = document.getElementById("messageContent");
 
-  // Limpa qualquer classe anterior de mensagem
   messageContent.classList.remove('alert', 'alert-success', 'alert-danger', 'alert-warning');
 
-  // Define a classe do tipo de mensagem
   if (type === 'success') {
     messageContent.classList.add('alert', 'alert-success');
   } else if (type === 'danger') {
@@ -65,12 +62,9 @@ function showMessageModal(message, type) {
     messageContent.classList.add('alert', 'alert-warning');
   }
 
-  // Insere a mensagem no modal
   messageContent.innerHTML = message;
 
-  // Exibe o modal
   modalMessage.show();
 
-  // Fecha automaticamente após 2 segundos
   setTimeout(() => modalMessage.hide(), 2000);
 }

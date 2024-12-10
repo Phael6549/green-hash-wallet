@@ -6,11 +6,13 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 
+// Variáveis de criptografia, da api, da chave privada e do endereço
 const ENCRYPTION_ALGORITHM = 'aes-256-cbc';
 const KEY_LENGTH = 32;
 const INFURA_API_KEY = process.env.INFURA_API_KEY;
 var privateKey, address;
 
+// Classe que representa uma rede EVM
 class Rede {
   constructor(rede_infura = '', moedaSimbolo = '', scan = '', api_key = '') {
     this.rede_infura = rede_infura;
@@ -20,20 +22,22 @@ class Rede {
   }
 }
 
+// Objetos da classe Rede que representam cada rede EVM do aplicativo
 const eth_mainnet = new Rede('mainnet', 'ETH', 'https://api.etherscan.io', process.env.ETH_MAINNET_KEY);
-const eth_test_sepolia = new Rede('sepolia', 'ETH', 'https://api-sepolia.etherscan.io', process.env.ETH_TEST_SEPOLIA_KEY);
 const bsc_mainnet = new Rede('bsc-mainnet', 'BNB', 'https://api.bscscan.com', process.env.BSC_MAINNET_KEY);
 const base_mainnet = new Rede('base-mainnet', 'ETH', 'https://api.basescan.org', process.env.BASE_MAINNET_KEY);
-const polygon_amoy = new Rede('polygon-mainnet', 'MATIC', 'https://api.polygonscan.com', process.env.POLYGON_AMOY_KEY);
 const optimism_mainnet = new Rede('optimism-mainnet', 'ETH', 'https://api-optimistic.etherscan.io', process.env.OPTIMISM_MAINNET_KEY);
 const arbitrum_mainnet = new Rede('arbitrum-mainnet', 'ETH', 'https://api.arbiscan.io', process.env.ARBITRUM_MAINNET_KEY);
 
+// Variável que representa a rede atual do aplicativo
 var redeAtual = eth_mainnet;
 
+// Função para gerar chave para descriptografia de dados
 function generateKeyFromPassword(password, salt) {
   return crypto.scryptSync(password, salt, KEY_LENGTH);
 }
-  
+
+// Função para descriptografar dados
 function decryptData(encryptedData, password) {
   const parts = encryptedData.split(':');
   const salt = Buffer.from(parts[0], 'hex');
@@ -49,6 +53,7 @@ function decryptData(encryptedData, password) {
   return decryptedData;
 }
 
+// Função para checar se a carteira EVM existe e está salva corretamente
 function verificaCarteira() {
   const walletPath = path.join(__dirname, 'wallet.json');
 
@@ -56,27 +61,27 @@ function verificaCarteira() {
     try {
       const walletData = JSON.parse(fs.readFileSync(walletPath, 'utf-8'));
 
-      // Verifica se o arquivo contém o formato esperado
       if (walletData.address && walletData.privateKey) {
       } else {
-        redirectToPage('index.html'); // Redirecionar para a página wallet.html
+        redirectToPage('index.html');
       }
     } catch (error) {
-      redirectToPage('index.html'); // Redirecionar para a página wallet.html
+      redirectToPage('index.html');
     }
   } else {
-    redirectToPage('index.html'); // Redirecionar para a página wallet.html
+    redirectToPage('index.html');
   }
 }
 
+// Função para deletar carteira do aplicativo
 function deleteWallet() {
   const walletPath = path.join(__dirname, 'wallet.json');
 
   if (fs.existsSync(walletPath)) {
     try {
-      fs.unlinkSync(walletPath); // Deleta o arquivo wallet.json
+      fs.unlinkSync(walletPath);
       setTimeout(() => {
-        redirectToPage('index.html'); // Redireciona para outra página
+        redirectToPage('index.html');
       }, 2000);
       return true;
     } catch (error) {
@@ -84,13 +89,13 @@ function deleteWallet() {
     }
   } else {
     setTimeout(() => {
-      redirectToPage('index.html'); // Redireciona para outra página
+      redirectToPage('index.html');
     }, 2000);
     return true;
   }
 }
 
-// Função para autenticar e descriptografar a carteira de forma síncrona
+// Função para autenticar e descriptografar a carteira
 function authenticateWallet(password) {
   const walletPath = path.join(__dirname, 'wallet.json');
 
@@ -100,7 +105,6 @@ function authenticateWallet(password) {
       const encryptedPrivateKey = walletData.privateKey;
       const encryptedAddress = walletData.address;
 
-      // Descriptografa os dados usando a senha fornecida
       let decryptedPrivateKey = decryptData(encryptedPrivateKey, password);
       let decryptedAddress = decryptData(encryptedAddress, password);
 
@@ -108,7 +112,7 @@ function authenticateWallet(password) {
         address = decryptedAddress;
         privateKey = decryptedPrivateKey;
         setTimeout(() => {
-          redirectToPage('wallet.html'); // Redireciona para outra página
+          redirectToPage('wallet.html');
         }, 2000);
         return { success: true };
       } else {
@@ -118,11 +122,12 @@ function authenticateWallet(password) {
       return { success: false, message: "Senha incorreta!"};
     }
   } else {
-    redirectToPage('index.html'); // Redirecionar para a página wallet.html
+    redirectToPage('index.html');
     return { success: false, message: "Carteira não encontrada!" };
   }
 }
 
+// Função para mostrar a chave privada da carteira
 function showPrivateKey(password){
   const walletPath = path.join(__dirname, 'wallet.json');
 
@@ -145,22 +150,17 @@ function showPrivateKey(password){
   }
 }
 
+// Função para mudar a rede atual do aplicativo
 function mudaRede(rede) {
   switch(rede){
     case 'mainnet':
         redeAtual = eth_mainnet;
-      break;
-    case 'sepolia':
-        redeAtual = eth_test_sepolia;
       break;
     case 'bsc-mainnet':
         redeAtual = bsc_mainnet;
       break;
     case 'base-mainnet':
         redeAtual = base_mainnet;
-      break;
-    case 'polygon-amoy':
-        redeAtual = polygon_amoy;
       break;
     case 'optimism-mainnet':
         redeAtual = optimism_mainnet;
@@ -169,18 +169,18 @@ function mudaRede(rede) {
         redeAtual = arbitrum_mainnet;
       break;
     default:
-
+      redeAtual = eth_mainnet;
   }
 }
 
-// Função para obter o valor atual de uma moeda em USD
+// Função para obter o valor atual da moeda em USD
 async function getPrice() {
   try {
     response = await fetch(`${redeAtual.scan}/api?module=stats&action=${redeAtual.moedaSimbolo}price&apikey=${redeAtual.api_key}`);
     data = await response.json();
 
     if (data.status === "1") {
-      const coinPriceUSD = data.result.ethusd; // Valor da moeda em USD
+      const coinPriceUSD = data.result.ethusd;
       return coinPriceUSD;
     } else {
       return null;
@@ -190,17 +190,15 @@ async function getPrice() {
   }
 }
 
+// Função para retornar os dados principais da carteira
 async function retornaDadosCarteira() {
   try {
 
-    // Configuração do provedor para interagir com a rede EVM
-    const provider = new ethers.JsonRpcProvider('https://' + redeAtual.rede_infura + '.infura.io/v3/' + INFURA_API_KEY); // Substitua com seu ID da Infura ou outro provedor
+    const provider = new ethers.JsonRpcProvider('https://' + redeAtual.rede_infura + '.infura.io/v3/' + INFURA_API_KEY);
 
-    // Obter o saldo da carteira
     const balanceWei = await provider.getBalance(address);
     const balanceCoin = ethers.formatEther(balanceWei);
 
-    // Obter o preço em USD
     const priceCoinUSD = await getPrice();
     const balanceUSD = priceCoinUSD ? (balanceCoin * priceCoinUSD).toFixed(2) : "";
 
@@ -210,6 +208,7 @@ async function retornaDadosCarteira() {
   }
 }
 
+// Função para retornar os tokens importados da carteira e da rede atual
 async function retornarTokens() {
   const walletPath = path.join(__dirname, 'wallet.json');
 
@@ -228,7 +227,6 @@ async function retornarTokens() {
           }
         }
 
-        // Escrevendo no arquivo após o loop, quando todos os tokens foram processados
         fs.writeFileSync(walletPath, JSON.stringify(walletData, null, 2));
 
         return tokens;
@@ -244,32 +242,25 @@ async function retornarTokens() {
   }
 }
 
-// Função para enviar ETH
+// Função para enviar Moeda
 async function sendCoin(destinationAddress, amountInCoin) {
   try {
 
-    // Converter o valor para wei (as transações no Ethereum são feitas em wei)
     const amountInWei = ethers.parseUnits(amountInCoin, 'ether');
 
-    // Preparar a transação
     const tx = {
       to: destinationAddress,
       value: amountInWei,
     };
 
-    // Configuração do provedor para interagir com a rede EVM
     const provider = new ethers.JsonRpcProvider('https://' + redeAtual.rede_infura + '.infura.io/v3/' + INFURA_API_KEY); 
 
-    // Criar a carteira com a chave privada e associar ao provedor
     userWallet = new ethers.Wallet(privateKey).connect(provider);
 
-    // Enviar a transação e aguardar a confirmação
     const txResponse = await userWallet.sendTransaction(tx);
 
-    // Aguardar a transação ser confirmada
     const txReceipt = await txResponse.wait();
 
-    // Exibir a confirmação para o usuário
     return { success: true, response: txReceipt.hash };
 
   } catch (error) {
@@ -277,6 +268,7 @@ async function sendCoin(destinationAddress, amountInCoin) {
   }
 }
 
+// Função para buscar um token na rede atual
 async function buscarToken(tokenAddress) {
   try {
 
@@ -286,7 +278,6 @@ async function buscarToken(tokenAddress) {
 
       const provider = new ethers.JsonRpcProvider('https://' + redeAtual.rede_infura + '.infura.io/v3/' + INFURA_API_KEY); 
 
-      // ABI mínima para interagir com um token ERC-20 (balanceOf, decimals, name e symbol)
       const tokenABI = [
           "function balanceOf(address owner) view returns (uint256)",
           "function decimals() view returns (uint8)",
@@ -294,17 +285,14 @@ async function buscarToken(tokenAddress) {
           "function symbol() view returns (string)"
       ];
       
-      // Criar uma instância do contrato do token
       const tokenContract = new ethers.Contract(tokenAddress, tokenABI, provider);
 
-      // Obter informações do token
       const balance = await tokenContract.balanceOf(address);
       const decimals = await tokenContract.decimals();
       const formattedBalance = ethers.formatUnits(balance, decimals);
       const tokenName = await tokenContract.name();
       const tokenSymbol = await tokenContract.symbol();
       
-      // Retornar os dados do token em um objeto
       return {
           tokenName: tokenName,
           tokenSymbol: tokenSymbol,
@@ -312,20 +300,19 @@ async function buscarToken(tokenAddress) {
           decimals: decimals
       };
   } catch (error) {
-      // Em caso de erro, capturar e exibir a mensagem
       throw new Error("Erro ao buscar dados do token. Por favor, tente novamente mais tarde.");
   }
 }
 
+// Função para adicionar um token na carteira
 async function addTokenToWallet(tokenAddress) {
   try {
     const tokenData = await buscarToken(tokenAddress);
 
-    // Obter ou criar dados da carteira em wallet.json
     const walletPath = path.join(__dirname, 'wallet.json');
     let walletData = fs.existsSync(walletPath) ? JSON.parse(fs.readFileSync(walletPath)) : {};
 
-    // Verificar se o token já está na carteira
+    // Verificar se o token já não está na carteira
     if (walletData.tokens) {
       const tokenExists = walletData.tokens.some(token => token.contract === tokenAddress);
       if (tokenExists) {
@@ -337,7 +324,6 @@ async function addTokenToWallet(tokenAddress) {
       walletData.tokens = [];
     }
 
-    // Adicionar o token à lista na carteira
     walletData.tokens.push({
       contract: tokenAddress,
       name: tokenData.tokenName,
@@ -347,7 +333,6 @@ async function addTokenToWallet(tokenAddress) {
       decimals: parseFloat(tokenData.decimals)
     });
 
-    // Salvar a carteira no wallet.json
     fs.writeFileSync(walletPath, JSON.stringify(walletData, null, 2));
 
     return {
@@ -360,28 +345,23 @@ async function addTokenToWallet(tokenAddress) {
   }
 }
 
-//Função para excluir um token
+//Função para excluir um token da carteira
 async function excluirToken(tokenIndex) {
   try {
     if (!address) {
       throw new Error('Nenhuma carteira carregada.');
     }
 
-    // Obter os dados da carteira de wallet.json
     const walletPath = path.join(__dirname, 'wallet.json');
     let walletData = fs.existsSync(walletPath) ? JSON.parse(fs.readFileSync(walletPath)) : {};
 
-    // Verificar se existe tokens
     if (!walletData.tokens || !Array.isArray(walletData.tokens)) {
       throw new Error('Nenhum token encontrado na carteira.');
     }
 
-    // Verificar se o índice do token é válido
     if (tokenIndex >= 0 && tokenIndex < walletData.tokens.length) {
-      // Remover o token da lista de tokens
       walletData.tokens.splice(tokenIndex, 1);
 
-      // Atualizar o wallet.json com a lista sem o token excluído
       fs.writeFileSync(walletPath, JSON.stringify(walletData, null, 2));
       return true;
     } else {
@@ -393,39 +373,31 @@ async function excluirToken(tokenIndex) {
   }
 }
 
-//Função para enviar um token
+//Função para enviar um token para outra carteira
 async function enviarToken(tokenAddress, destino, quantidade) {
   try {
     if (!address || !privateKey) {
       throw new Error('Nenhuma carteira ou chave privada carregada.');
     }
 
-    // Configurar o provedor (usando Infura como exemplo)
     const provider = new ethers.JsonRpcProvider(`https://${redeAtual.rede_infura}.infura.io/v3/${INFURA_API_KEY}`);
     
-    // Criar a instância da carteira
     const signer = new ethers.Wallet(privateKey, provider);
 
-    // ABI mínima para transferir um token ERC-20
     const tokenABI = [
       "function decimals() view returns (uint8)",
       "function transfer(address recipient, uint256 amount) public returns (bool)"
     ];
 
-    // Criar a instância do contrato do token
     const tokenContract = new ethers.Contract(tokenAddress, tokenABI, signer);
 
-    // Calcular o valor a ser enviado, considerando os decimais do token
     const tokenDecimals = await tokenContract.decimals();
     const amountInWei = ethers.parseUnits(quantidade.toString(), tokenDecimals);
 
-    // Enviar a transação
     const tx = await tokenContract.transfer(destino, amountInWei);
     
-    // Esperar pela confirmação da transação
     const receipt = await tx.wait();
 
-    // Confirmar o envio e mostrar os detalhes
     if (receipt.status === 1) {
       return tx.hash;
     } else {
@@ -437,11 +409,12 @@ async function enviarToken(tokenAddress, destino, quantidade) {
   }
 }
 
-// Expondo a função de importação da carteira para o front-end via IPC
+// Expondo a função de verificar carteira para o front-end via IPC
 ipcMain.handle('verificaCarteira', (event) => {
     return verificaCarteira();
 });
 
+// Expondo a função de deletar carteira para o front-end via IPC
 ipcMain.handle('deleteWallet', async (event) => {
   return deleteWallet();
 });
@@ -451,7 +424,7 @@ ipcMain.handle('authenticateWallet', (event, password) => {
   return authenticateWallet(password);
 });
 
-// Expondo a função de autenticacao de carteira para o front-end via IPC
+// Expondo a função de mostrar chave privada da carteira para o front-end via IPC
 ipcMain.handle('showPrivateKey', (event, password) => {
   return showPrivateKey(password);
 });
@@ -461,32 +434,32 @@ ipcMain.handle('mudaRede', (event, rede) => {
   return mudaRede(rede);
 });
 
-// Expondo a função de exclusão de carteira para o front-end via IPC
+// Expondo a função de retornar os tokens da carteira para o front-end via IPC
 ipcMain.handle('retornarTokens', (event) => {
   return retornarTokens();
 });
 
-// Expondo a função de exclusão de carteira para o front-end via IPC
+// Expondo a função de retornar os dados da carteira para o front-end via IPC
 ipcMain.handle('retornaDadosCarteira', (event) => {
   return retornaDadosCarteira();
 });
 
-// Expondo a função de exclusão de carteira para o front-end via IPC
+// Expondo a função de enviar moeda da carteira para o front-end via IPC
 ipcMain.handle('sendCoin', (event, destinationAddress, amountInCoin) => {
   return sendCoin(destinationAddress, amountInCoin);
 });
 
-// Expondo a função de autenticacao de carteira para o front-end via IPC
+// Expondo a função de adicionar um token na carteira para o front-end via IPC
 ipcMain.handle('addTokenToWallet', (event, tokenAddress) => {
   return addTokenToWallet(tokenAddress);
 });
 
-// Expondo a função de autenticacao de carteira para o front-end via IPC
+// Expondo a função de excluir um token da carteira para o front-end via IPC
 ipcMain.handle('excluirToken', (event, tokenIndex) => {
   return excluirToken(tokenIndex);
 });
 
-// Expondo a função de autenticacao de carteira para o front-end via IPC
+// Expondo a função de enviar um token da carteira para o front-end via IPC
 ipcMain.handle('enviarToken', (event, tokenAddress, destino, quantidade) => {
   return enviarToken(tokenAddress, destino, quantidade);
 });

@@ -103,6 +103,7 @@
       </div>
     </div>
 
+    <!-- Título da Carteira -->
     <h1 class="mb-4">Carteira <span id="moeda">Ethereum</span></h1>
 
     <div id="tokens" style="display: none;">
@@ -117,7 +118,7 @@
       <p id="zero-tokens">Nenhum token importado ainda.</p>
 
       <ul id="token-list" class="mb-4">
-        <!-- Esta seção será preenchida dinamicamente com os saldos de tokens -->
+        
       </ul>
 
       <!-- Modal de Importação de Token -->
@@ -145,16 +146,14 @@
       <div class="modal fade" id="sendModal" tabindex="-1" aria-labelledby="sendModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
-            <!-- Cabeçalho -->
+
             <div class="modal-header">
               <h5 class="modal-title" id="sendModalLabel">Enviar Tokens</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar">X</button>
             </div>
 
-            <!-- Corpo -->
             <div class="modal-body">
               <form id="sendForm">
-                <!-- Campo: Endereço de Destino -->
                 <div class="mb-3">
                   <label for="destino" class="form-label">Endereço de Destino:</label>
                   <input 
@@ -166,7 +165,6 @@
                     required>
                 </div>
 
-                <!-- Campo: Quantidade de Tokens -->
                 <div class="mb-3">
                   <label for="quantidade" class="form-label">Quantidade de Tokens:</label>
                   <input 
@@ -180,10 +178,8 @@
                     required>
                 </div>
 
-                <!-- Campo oculto -->
                 <input type="hidden" id="contrato" name="contrato">
 
-                <!-- Botão de Envio -->
                 <div class="d-grid">
                   <button type="submit" class="btn btn-primary">Enviar</button>
                 </div>
@@ -201,11 +197,9 @@
         <label for="networkSwitcher" class="form-label">Escolha uma rede:</label>
         <select id="networkSwitcher" class="form-select">
           <option value="mainnet" simbolo="ETH">Ethereum</option>
-          <option value="sepolia" simbolo="ETH">Ethereum Sepolia</option>
           <option value="bsc-mainnet" simbolo="BNB">BSC (Binance Smart Chain)</option>
           <option value="base-mainnet" simbolo="ETH">Base</option>
-          <option value="polygon-amoy" simbolo="MATIC">Polygon</option>
-          <option value="optimism-mainnet" simbolo="ETH">Optimism</option>
+s          <option value="optimism-mainnet" simbolo="ETH">Optimism</option>
           <option value="arbitrum-mainnet" simbolo="ETH">Arbitrum</option>
         </select>  
       </div>
@@ -224,6 +218,7 @@
         </div>        
       </div>
   
+      <!-- Botões para Enviar ETH e Visualizar Tokens -->
       <div class="d-flex justify-content-center gap-3">
         <button id="enviar-eth" class="btn btn-success mb-4">Enviar ETH</button>
         <button id="muda-tokens" class="btn btn-secondary mb-4">Visualizar Tokens</button>

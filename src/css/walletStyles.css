@@ -1,53 +1,47 @@
-/* Centralizar todo o conteúdo */
 body {
   height: 100vh;
-  background-image: url('../../img/fundoCarteira.jpg'); /* Coloque a imagem de fundo desejada */
-  background-size: cover; /* Faz a imagem cobrir toda a tela */
+  background-image: url('../../img/fundoCarteira.jpg');
+  background-size: cover;
   background-position: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white; /* Altera a cor de todo o texto para branco */
+  color: white;
 }
 
-/* Centralizar o conteúdo dentro da main-container */
 .main-container {
   width: 100%;
-  max-width: 800px; /* Define um limite de largura, você pode ajustar conforme necessário */
+  max-width: 800px;
   margin: 10%;
   padding: 3%;
-  background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro translúcido para melhor contraste */
-  border-radius: 15px; /* Bordas arredondadas */
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
 }
 
-/* Estilo para o título da carteira */
 h1 {
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 1.5rem;
 }
 
-/* Ajuste para o formulário e botões */
 .form-label, .form-control, .btn {
-  color: white; /* Altera a cor do texto dentro dos campos e botões */
+  color: white;
 }
 
 .form-control {
-  background-color: #333; /* Cor de fundo escura para os campos de entrada */
-  border: 1px solid #ccc; /* Cor da borda dos campos */
+  background-color: #333;
+  border: 1px solid #ccc;
 }
 
 .form-control:focus {
-  border-color: #4CAF50; /* Cor da borda quando o campo está em foco */
+  border-color: #4CAF50;
   outline: none;
 }
 
-/* Estilo para a lista de tokens e transações */
 #token-list, #transactionsList {
   padding-left: 20px;
 }
 
-/* Modal */
 .modal-content {
   background-color: #222;
   color: white;
@@ -65,7 +59,7 @@ h1 {
 }
 
 .modal-content .btn-close:hover {
-  color: #ccc; /* Pode ser ajustado para mudar a cor ao passar o mouse */
+  color: #ccc;
 }
 .form-select{
   background-color: #222;
@@ -76,7 +70,6 @@ h1 {
   color: white;
 }
 
-/* Outras personalizações de texto */
 #zero-tokens, #error, #sucesso {
   text-align: center;
 }
@@ -128,25 +121,21 @@ h1 {
   height: 3rem;
 }
 
-/* Torna o texto dentro do modal branco */
 #privateKeyShowModal .modal-content {
-  background-color: #212529; /* Fundo escuro para contraste */
-  color: #ffffff; /* Texto branco */
+  background-color: #212529;
+  color: #ffffff;
 }
 
-/* Estilo para o textarea */
 #privateKeyShowModal textarea {
-  background-color: #343a40; /* Fundo do textarea */
-  color: #ffffff; /* Texto branco no textarea */
-  border: 1px solid #495057; /* Borda do textarea */
+  background-color: #343a40;
+  color: #ffffff;
+  border: 1px solid #495057;
 }
 
-/* Altera a cor do texto mutado para branco */
 #privateKeyShowModal .text-muted {
   color: #ced4da !important;
 }
 
-/* Estilo para o botão fechar */
 #privateKeyShowModal .btn-close {
   color: #ffffff;
   opacity: 0.7;
@@ -158,9 +147,9 @@ h1 {
 }
 
 #passwordWallet, #tokenAddress, #destino, #quantidade, #contrato, #destinationAddress, #amountToSend {
-  background-color: #333; /* Cor de fundo escura para o campo */
-  color: #fff; /* Cor do texto no campo */
-  border: 1px solid #ccc; /* Cor da borda (pode ser alterada para seu gosto) */
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #ccc;
 }
 
 #passwordWallet:focus, #tokenAddress:focus, #destino:focus, #quantidade:focus, #contrato:focus, #destinationAddress:focus, #amountToSend:focus, #networkSwitcher:focus {
@@ -169,61 +158,54 @@ h1 {
   border-width: 0.5px; 
 }
 
-/* Remover o fundo branco da tela apenas para o #messageModal */
 #messageModal .modal-backdrop {
   background-color: transparent !important;
 }
 
-/* Remover o fundo do modal apenas para o #messageModal */
 #messageModal .modal-content {
-  background-color: transparent !important; /* Fundo transparente */
-  border: none !important; /* Remover a borda */
-  box-shadow: none !important; /* Remover sombra */
-  color: white !important; /* Garantir que o texto seja branco */
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: white !important;
 }
 
-/* Remover borda e outros estilos do modal apenas para o #messageModal */
 #messageModal .modal-dialog {
   background-color: transparent !important;
-  border: none !important; /* Remover a borda do modal */
+  border: none !important;
 }
 
-/* Estilo da mensagem apenas para o #messageModal */
 #messageModal .modal-body {
   background-color: transparent !important;
-  color: white !important; /* Texto branco */
-  font-size: 18px !important; /* Ajustar o tamanho do texto */
-  padding: 0 !important; /* Remover o padding */
-  text-align: center !important; /* Centralizar o texto */
+  color: white !important;
+  font-size: 18px !important;
+  padding: 0 !important;
+  text-align: center !important;
 }
 
-/* Estilo do texto conforme o tipo da mensagem */
 .text-success {
-  color: #28a745 !important; /* Verde para sucesso */
+  color: #28a745 !important;
 }
 
 .text-danger {
-  color: #dc3545 !important; /* Vermelho para erro */
+  color: #dc3545 !important;
 }
 
 .text-warning {
-  color: #ffc107 !important; /* Amarelo para aviso */
+  color: #ffc107 !important;
 }
 
 .text-info {
-  color: #17a2b8 !important; /* Azul para informações gerais */
+  color: #17a2b8 !important;
 }
 
-/* Estilo geral para o contêiner de informações */
 .wallet-info {
   margin: 20px 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fonte mais moderna */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Estilo para cada item de carteira */
 .wallet-item {
-  background-color: #333; /* Fundo escuro */
-  border-radius: 10px; /* Bordas arredondadas */
+  background-color: #333;
+  border-radius: 10px;
   padding: 15px;
   margin-bottom: 10px;
   color: white;
@@ -231,26 +213,23 @@ h1 {
   justify-content: space-between;
   align-items: center;
   transition: all 0.3s ease-in-out;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Estilo do texto "Endereço da Carteira" e "Saldo" */
 .wallet-item strong {
   font-weight: 600;
   font-size: 16px;
 }
 
-/* Estilo da parte que mostra os valores */
 .wallet-item .value {
   font-weight: 700;
   font-size: 16px;
-  color: #4CAF50; /* Verde para destacar valores */
-  text-transform: uppercase; /* Deixa o valor mais destacado */
+  color: #4CAF50;
+  text-transform: uppercase;
 }
 
-/* Efeito de hover para dar interatividade */
 .wallet-item:hover {
   background-color: #444;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Mais destaque na borda */
-  transform: translateY(-5px); /* Levanta o item */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  transform: translateY(-5px);
 }
