@@ -12,17 +12,40 @@ Copyright (c) 2024 Raphael Dutra Cunha
 2.1. O Licenciante concede ao Usuário uma licença limitada, não exclusiva e intransferível para utilizar o Software para fins pessoais ou comerciais, sujeito às restrições estabelecidas nesta licença.
 2.2. Esta licença não transfere a propriedade do Software ao Usuário, permanecendo todos os direitos reservados ao Licenciante.
 
-3. RESTRIÇÕES DE USO
-3.1. O Usuário não poderá, sob nenhuma circunstância:
+3. RECURSOS DE TERCEIROS E USO DE APIs
+3.1. O Software utiliza as seguintes APIs para seu funcionamento:
+
+ - Infura: Provedor de nós Ethereum. Requer registro e autenticação por chave de API.
+ - Etherscan: API pública para acesso a dados do Ethereum (https://api.etherscan.io).
+ - BscScan: API pública para acesso a dados da Binance Smart Chain (https://api.bscscan.com).
+ - BaseScan: API pública para acesso a dados da rede Base (https://api.basescan.org).
+ - Optimistic Etherscan: API pública para acesso a dados do Optimism (https://api-optimistic.etherscan.io).
+ - ArbiScan: API pública para acesso a dados da rede Arbitrum (https://api.arbiscan.io).
+
+3.2. O uso destas APIs está sujeito aos respectivos termos e condições de cada provedor. O Licenciante não se responsabiliza por alterações ou interrupções no serviço fornecido por esses terceiros.
+
+4. USO DE ATIVOS LICENCIADOS
+4.1. O Software utiliza os seguintes recursos gráficos licenciados da plataforma Envato Elements:
+
+ - Abstract IT digital technology background: Licenciado para uso exclusivo neste projeto registrado como Green Hash Wallet. URL: https://elements.envato.com/abstract-it-digital-technology-background-GGU7YQY.
+ - Real Night Sky Stars: Licenciado para uso exclusivo neste projeto registrado como Green Hash Wallet. URL: https://elements.envato.com/real-night-sky-stars-natural-starry-sky-dark-blue--HFAUH77.
+
+4.2. Esses ativos são utilizados em conformidade com as licenças fornecidas pela Envato Elements e não podem ser reutilizados ou redistribuídos fora do contexto deste Software.
+
+5. RESTRIÇÕES DE USO
+5.1. O Usuário não poderá, sob nenhuma circunstância:
 a) Copiar, distribuir ou sublicenciar o Software, exceto conforme expressamente permitido nesta licença;
 b) Modificar, adaptar, traduzir ou criar obras derivadas do Software sem autorização prévia por escrito do Licenciante;
 c) Utilizar o Software para fins ilegais ou em violação a leis aplicáveis.
 
-4. LIMITAÇÃO DE GARANTIA
-4.1. O Software é fornecido "NO ESTADO EM QUE SE ENCONTRA", sem garantia de qualquer natureza, expressa ou implícita, incluindo, mas não se limitando às garantias de comercialização, adequação a um propósito específico ou não violação.
-4.2. O Licenciante não será responsável por quaisquer danos diretos, indiretos, incidentais, especiais ou consequentes decorrentes do uso ou incapacidade de usar o Software.
+6. LIMITAÇÃO DE GARANTIA
+6.1. O Software é fornecido "NO ESTADO EM QUE SE ENCONTRA", sem garantia de qualquer natureza, expressa ou implícita, incluindo, mas não se limitando às garantias de comercialização, adequação a um propósito específico ou não violação.
+6.2. O Licenciante não será responsável por quaisquer danos diretos, indiretos, incidentais, especiais ou consequentes decorrentes do uso ou incapacidade de usar o Software.
 
-5. PRAZO E RESCISÃO
-5.1. Esta licença entra em vigor na data em que o Usuário adquirir ou utilizar o Software.
-5.2. O Licenciante poderá rescindir esta licença imediatamente caso o Usuário viole qualquer termo aqui estabelecido.
-5.3. Em caso de rescisão, o Usuário deverá cessar imediatamente o uso do Software e excluir todas as cópias em sua posse.
+7. PRAZO E RESCISÃO
+7.1. Esta licença entra em vigor na data em que o Usuário adquirir ou utilizar o Software.
+7.2. O Licenciante poderá rescindir esta licença imediatamente caso o Usuário viole qualquer termo aqui estabelecido.
+7.3. Em caso de rescisão, o Usuário deverá cessar imediatamente o uso do Software e excluir todas as cópias em sua posse.
+
+8. NOTAS FINAIS
+8.1. O Usuário concorda em utilizar o Software de acordo com as condições estabelecidas nesta licença e em respeitar os direitos de propriedade intelectual do Licenciante e de terceiros.
